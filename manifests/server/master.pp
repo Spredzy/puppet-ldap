@@ -130,7 +130,7 @@ class ldap::server::master(
   $schema_inc          = [],
   $modules_inc         = [],
   $index_inc           = [],
-  $cnconfig_attrs      = {},           
+  $cnconfig_attrs      = {},
   $log_level           = '0',
   $bind_anon           = true,
   $ssl                 = false,

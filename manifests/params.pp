@@ -72,7 +72,7 @@ class ldap::params {
       #
       #  olcTLSCACertificatePath = $ssl_ca
       #  olcTLSCertificateFile = $ssl_cert
-      #  olcTLSCertificateKeyFile = $ssl_key   
+      #  olcTLSCertificateKeyFile = $ssl_key
       #
       $cnconfig_default_attrs = [
         'olcConfigFile',
@@ -187,7 +187,7 @@ class ldap::params {
       #
       #  olcTLSCACertificatePath = $ssl_ca
       #  olcTLSCertificateFile = $ssl_cert
-      #  olcTLSCertificateKeyFile = $ssl_key   
+      #  olcTLSCertificateKeyFile = $ssl_key
       #
       $cnconfig_default_attrs = [
         'olcConfigFile',
@@ -277,7 +277,7 @@ class ldap::params {
       #
       #  olcTLSCACertificatePath = $ssl_ca
       #  olcTLSCertificateFile = $ssl_cert
-      #  olcTLSCertificateKeyFile = $ssl_key   
+      #  olcTLSCertificateKeyFile = $ssl_key
       #
       $cnconfig_default_attrs = [
         'olcConfigFile',
