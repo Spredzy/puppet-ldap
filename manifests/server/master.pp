@@ -81,10 +81,6 @@
 #    *Requires*: https://github.com/torian/puppet-motd.git
 #    *Optional* (defaults to false)
 #
-#  [ldapi]
-#    Enable ldapi connection
-#    *Optional* (defaults to 'false')
-#
 #  [ensure]
 #    *Optional* (defaults to 'present')
 #
@@ -142,7 +138,6 @@ class ldap::server::master(
   $syncprov_sessionlog = '100',
   $sync_binddn         = false,
   $enable_motd         = false,
-  $ldapi               = false,
   $ensure              = present) {
 
     include stdlib
@@ -172,7 +167,7 @@ class ldap::server::master(
       group   => $ldap::params::server_group,
     }
 
-    if ($ldapi and !empty($cnconfig_attrs)) {
+    if (!empty($cnconfig_attrs)) {
 
       package { $ldap::params::package :
         ensure => $ensure,
