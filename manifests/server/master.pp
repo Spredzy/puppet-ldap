@@ -199,6 +199,16 @@ class ldap::server::master(
       }
   }
 
+  file {"${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif" :
+    ensure  => present,
+    content => template("ldap/${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif"),
+    require => Service[$ldap::params::service],
+  }
+
+  exec{"/usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f ${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif && rm -f ${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif":
+    require => File["${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif"],
+  }
+
   $msg_prefix = 'SSL enabled. You must specify'
   $msg_suffix = '(filename). It should be located at puppet:///files/ldap'
 
