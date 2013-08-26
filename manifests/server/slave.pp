@@ -223,8 +223,14 @@ class ldap::server::slave(
       require => Service[$ldap::params::service],
     }
 
-    exec{"/usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f ${ldap::params::prefix}/slapd.d/cn=config-update.ldif && rm -f ${ldap::params::prefix}/slapd.d/cn=config-update.ldif":
-      require => File["${ldap::params::prefix}/slapd.d/cn=config-update.ldif"],
+    exec{"/usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f ${ldap::params::prefix}/slapd.d/cn=config-update.ldif":
+      require   => File["${ldap::params::prefix}/slapd.d/cn=config-update.ldif"],
+      tries		=> 10,
+      try_sleep => 1,
+    }
+
+    exec{"/bin/rm -f ${ldap::params::prefix}/slapd.d/cn=config-update.ldif":
+      require => Exec["/usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f ${ldap::params::prefix}/slapd.d/cn=config-update.ldif"],
     }
 
   }
@@ -258,8 +264,14 @@ class ldap::server::slave(
 	require => Service[$ldap::params::service],
   }
 
-  exec{"/usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f ${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif && rm -f ${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif":
-    require => File["${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif"],
+  exec{"/usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f ${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif":
+    require     => File["${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif"],
+	tries       => 10,
+	try_sleep   => 1,
+  }
+  
+  exec{"/bin/rm -f ${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif":
+    require => Exec["/usr/bin/ldapmodify -Y EXTERNAL -H ldapi:/// -f ${ldap::params::prefix}/slapd.d/cn=config/olcDatabase={2}bdb-update.ldif"],
   }
 
   $msg_prefix = 'SSL enabled. You must specify'
